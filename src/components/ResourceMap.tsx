@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Map as LeafletMap, Marker, CircleMarker } from "leaflet";
 import type { Resource } from "@/lib/types";
 import { CATEGORY_COLOR } from "@/lib/types";
+import { BASEMAP_ATTRIBUTION, BASEMAP_URL } from "@/lib/basemap";
 
 type LeafletNs = typeof import("leaflet");
 
@@ -89,14 +90,10 @@ export default function ResourceMap({
         zoomControl: true,
         attributionControl: true,
       });
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-        {
-          maxZoom: 19,
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        },
-      ).addTo(map);
+      L.tileLayer(BASEMAP_URL, {
+        maxZoom: 19,
+        attribution: BASEMAP_ATTRIBUTION,
+      }).addTo(map);
       mapRef.current = map;
       setReady(true);
 

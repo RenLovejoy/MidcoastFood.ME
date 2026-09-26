@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import type { Map as LeafletMap } from "leaflet";
 import type { Resource } from "@/lib/types";
 import { CATEGORY_COLOR } from "@/lib/types";
+import { BASEMAP_URL } from "@/lib/basemap";
 
 export default function DetailMap({ resource }: { resource: Resource }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,10 +21,7 @@ export default function DetailMap({ resource }: { resource: Resource }) {
         zoomControl: false,
         attributionControl: false,
       });
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-        { maxZoom: 19 },
-      ).addTo(map);
+      L.tileLayer(BASEMAP_URL, { maxZoom: 19 }).addTo(map);
 
       const color = CATEGORY_COLOR[resource.category];
       L.marker([resource.lat, resource.lng], {
